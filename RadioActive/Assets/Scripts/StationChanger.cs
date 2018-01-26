@@ -8,23 +8,46 @@ public class StationChanger : MonoBehaviour
 
     private float currentFreq;
     public Text currentFreqText;
+    public GameObject pin;
+    public GameObject freqDial;
+
 	void Start ()
     {
-        
-	}
+        currentFreq = 88.0f;
+    }
 	
 	void Update ()
-    {
-        if (Input.GetAxis("Mouse ScrollWheel") != 0.0f) // forward
+    { 
+        if (Input.GetAxis("Mouse ScrollWheel") > 0.0f && currentFreq < 108.0f) // forward
         {
-            currentFreq = currentFreq + 0.5f;
-            currentFreqText.text = ("Current Frequency: " + currentFreq);
-            Debug.Log(currentFreqText.text);
+            currentFreq = currentFreq + 0.1f;
+            currentFreq = Mathf.Round(currentFreq * 100f) / 100f;
+            if (currentFreq % 1 == 0)
+            {
+                currentFreqText.text = ("Current Frequency: " + currentFreq + ".0");
+            }
+            else
+            {
+                currentFreqText.text = ("Current Frequency: " + currentFreq);
+            }
+
+            pin.transform.Translate(0.1f, 0.0f, 0.0f);
+            freqDial.transform.Rotate(0.0f, 0.0f, 0.1f)
         }
 
-        if (Input.GetAxis("Mouse ScrollWheel")) // backwards
+        if (Input.GetAxis("Mouse ScrollWheel") < 0.0f && currentFreq > 88.0f) // backwards
         {
-            minimap.orthographicSize--;
+            currentFreq = currentFreq - 0.1f;
+            currentFreq = Mathf.Round(currentFreq * 100f) / 100f;
+            if (currentFreq % 1 == 0)
+            {
+                currentFreqText.text = ("Current Frequency: " + currentFreq + ".0");
+            } else
+            {
+                currentFreqText.text = ("Current Frequency: " + currentFreq);
+            }
+            pin.transform.Translate(-0.1f, 0.0f, 0.0f);
+            freqDial.transform.Rotate(0.0f, 0.0f, -0.1f)
         }
     }
 }
