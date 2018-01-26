@@ -9,6 +9,7 @@ public class StationChanger : MonoBehaviour
     private float currentFreq;
     public Text currentFreqText;
     public GameObject pin;
+    public GameObject freqDial;
 
 	void Start ()
     {
@@ -31,6 +32,7 @@ public class StationChanger : MonoBehaviour
             }
 
             pin.transform.Translate(0.1f, 0.0f, 0.0f);
+            freqDial.transform.Rotate(0.0f, 0.0f, 0.1f)
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") < 0.0f && currentFreq > 88.0f) // backwards
@@ -45,6 +47,7 @@ public class StationChanger : MonoBehaviour
                 currentFreqText.text = ("Current Frequency: " + currentFreq);
             }
             pin.transform.Translate(-0.1f, 0.0f, 0.0f);
+            freqDial.transform.Rotate(0.0f, 0.0f, -0.1f)
         }
     }
 }
